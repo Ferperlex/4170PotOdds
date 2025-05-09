@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pot Odds</title>
+
+    <!-- ✅ Bungee Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+
+    <style>
+        /* ─────────── page setup ─────────── */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: #6495ED;
+            /* cornflower blue */
+        }
+
+        /* ─────────── layout ─────────── */
+        #home-wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* ─────────── headline ─────────── */
+        #home-wrapper h1 {
+            font-family: 'Bungee', sans-serif;  /* ✅ updated */
+            font-weight: bold;
+            font-size: 48px;
+            color: #ffffff;
+            margin: 0 0 40px;
+        }
+
+        /* ─────────── image ─────────── */
+        #home-image {
+            width: 340px;
+            height: auto;
+            margin-bottom: 40px;
+        }
+
+        /* ─────────── start button ─────────── */
+        #start-btn {
+            display: inline-block;
+            width: 340px;
+            padding: 16px 0;
+            background: #ffd700;
+            border-radius: 12px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            color: #5e5e5e;
+            text-decoration: none;
+        }
+
+        #start-btn:hover {
+            opacity: 0.95;
+        }
+    </style>
+</head>
+
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>

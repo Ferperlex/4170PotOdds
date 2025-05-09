@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #d6e6f2;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .title {
+    font-family: 'Bungee', cursive;
+    font-size: 32px;
+    color: #1e56a0;
+    margin-bottom: 30px;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+
+  .main-menu-btn {
+    background-color: #c0392b;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+
+  .content-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .text-content {
+    flex: 1;
+    font-size: 20px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .text-content iframe {
+    max-width: 100%;
+    width: 560px;
+    height: 315px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+
+  .image-container img {
+    max-width: 450px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+
+  .nav-btn {
+    background-color: #6495ED;
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .nav-btn:hover {
+    background-color: #4a78c2;
+  }
+
+  .example-container {
+    margin-top: 30px;
+  }
+
+  .example-btn {
+    background-color: #9370DB;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  .scroll-box {
+    background: #eee;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    max-width: 300px;
+    font-size: 18px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    .content-container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .nav-buttons {
+      justify-content: center;
+    }
+
+    .navigation {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .text-content iframe {
+      width: 100%;
+      height: auto;
+    }
+  }
+</style>
+
+<div class="container">
+  <div class="nav-buttons">
+    <a href="{{ url_for('main_menu') }}" class="main-menu-btn">Main Menu</a>
+  </div>
+
+  <h1 class="title">{{ title }}</h1>
+
+  <div class="content-container">
+    <div class="text-content">
+      <div>{{ content | safe }}</div>
+
+      {% if title == "What are pot odds?" %}
+      <div class="example-container">
+        <button class="example-btn" onclick="toggleExample()">Example</button>
+        <div id="example-box" class="scroll-box" style="display: none;">
+          <ul>
+            <li>Pot = $50</li>
+            <li>Bet = $10</li>
+            <li>→ Pot odds = 10 / (50 + 10) = 1:6 (~16.7%)</li>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="image-container">
+      <img src="{{ image }}" alt="{{ title }}" onerror="this.src='/static/images/image1.png'">
+    </div>
+  </div>
+
+  <div class="navigation">
+    <a href="{{ prev_url }}" class="nav-btn">Back</a>
+    <a href="{{ next_url }}" class="nav-btn">Next</a>
+  </div>
+</div>
+
+<script>
+  function toggleExample() {
+    const box = document.getElementById("example-box");
+    box.style.display = box.style.display === "none" ? "block" : "none";
+  }
+</script>
+{% endblock %}

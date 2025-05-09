@@ -1,0 +1,250 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Bungee&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        background: #d6e6f2;
+        font-family: 'Inter', sans-serif;
+        margin: 0
+    }
+
+    .page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 60px 20px;
+        box-sizing: border-box
+    }
+
+    .results-box {
+        background: #f0f0f0;
+        max-width: 1000px;
+        width: 100%;
+        padding: 50px 70px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .1)
+    }
+
+    .quiz-title {
+        font-family: 'Bungee', cursive;
+        font-size: 48px;
+        color: #1e56a0;
+        text-align: center;
+        margin: 0 0 20px
+    }
+
+    .score {
+        font-size: 64px;
+        font-weight: 700;
+        color: #1e56a0;
+        text-align: center;
+        margin: 0
+    }
+
+    .score-pill {
+        display: inline-block;
+        padding: 12px 32px;
+        border-radius: 40px;
+        font-size: 22px;
+        font-weight: 700;
+        margin: 25px 0
+    }
+
+    .high-score {
+        background: #28a745;
+        color: #fff
+    }
+
+    .mid-score {
+        background: #ffc107;
+        color: #333
+    }
+
+    .low-score {
+        background: #dc3545;
+        color: #fff
+    }
+
+    .dark-grey {
+        text-align: center;
+        font-size: 18px;
+        color: #495057;
+        margin-bottom: 45px
+    }
+
+    .breakdown {
+        background: #fff;
+        padding: 45px;
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .05)
+    }
+
+    .breakdown h2 {
+        font-family: 'Bungee', cursive;
+        font-size: 32px;
+        color: #1e56a0;
+        text-align: center;
+        margin: 0 0 35px
+    }
+
+    .result-item {
+        border-left: 6px solid transparent;
+        background: #f8f9fa;
+        padding: 28px 35px;
+        border-radius: 12px;
+        margin-bottom: 28px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, .05)
+    }
+
+    .correct-answer {
+        border-color: #28a745
+    }
+
+    .incorrect-answer {
+        border-color: #dc3545
+    }
+
+    .question-details {
+        background: #fff;
+        padding: 18px;
+        border-radius: 8px;
+        margin: 18px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .05)
+    }
+
+    .answer-details {
+        background: #e9ecef;
+        padding: 18px;
+        border-radius: 8px;
+        margin: 18px 0;
+        font-size: 16px
+    }
+
+    .explanation {
+        background: #f0f0f0;
+        padding: 18px;
+        border-radius: 8px;
+        font-size: 16px
+    }
+
+    .result-image img {
+        width: 100%;
+        max-width: 460px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, .1)
+    }
+
+    .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 34px;
+        margin-top: 55px
+    }
+
+    .card-container {
+        width: 220px;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+        transition: .25s
+    }
+
+    .card-container:hover {
+        transform: translateY(-5px)
+    }
+
+    .button-image {
+        width: 100%;
+        height: 130px;
+        object-fit: cover
+    }
+
+    .card-body {
+        padding: 18px 10px;
+        text-align: center;
+        font-weight: 600;
+        color: #1e56a0
+    }
+</style>
+
+<div class="page">
+    <div class="results-box">
+        <h1 class="quiz-title">QUIZ RESULTS</h1>
+        <p class="score">{{ score }}/{{ total_questions }}</p>
+
+        <span class="score-pill
+          {% if percentage >= 80 %}high-score{% elif percentage >= 60 %}mid-score{% else %}low-score{% endif %}">
+            {{ percentage|int }}%
+        </span>
+
+        <div class="dark-grey">
+            {% if score == total_questions %}
+            Congratulations! You got a perfect score!
+            {% elif percentage >= 70 %}
+            Well done! You passed the quiz!
+            {% else %}
+            Click **Quiz** to try again, or **Learn** to review the material.
+            {% endif %}
+        </div>
+
+        <div class="breakdown">
+            <h2>Question Breakdown</h2>
+            {% for result in results %}
+            <div class="result-item {% if result.is_correct %}correct-answer{% else %}incorrect-answer{% endif %}">
+                <h3>Question {{ loop.index }}: {{ result.question.split(':')[0] }}</h3>
+
+                <div class="question-details">
+                    {{ result.question.split(':',1)[1]|default(result.question,true) }}
+                </div>
+
+                <div class="answer-details">
+                    <p><strong>Your answer:</strong> {{ result.user_answer }}</p>
+                    <p><strong>Correct answer:</strong> {{ result.correct_answer }}</p>
+                </div>
+
+                <div class="explanation">
+                    <strong>Explanation:</strong> {{ result.explanation }}
+                </div>
+
+                {% if result.image %}
+                <div class="result-image">
+                    <img src="{{ result.image }}" alt="Question image">
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="button-row">
+            <!-- Learn -->
+            <div class="card-container">
+                <a href="{{ url_for('learn', topic='WhatArePotOdds', slide_number=1) }}">
+                    <img src="{{ url_for('static', filename='images/image1.png') }}" class="button-image" alt="Learn">
+                    <div class="card-body">Learn</div>
+                </a>
+            </div>
+            <!-- Quiz Again -->
+            <div class="card-container">
+                <a href="{{ url_for('quiz', q_number=1) }}">
+                    <img src="{{ url_for('static', filename='images/image5.png') }}" class="button-image" alt="Quiz">
+                    <div class="card-body">Quiz</div>
+                </a>
+            </div>
+            <!-- Main Menu -->
+            <div class="card-container">
+                <a href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/image3.png') }}" class="button-image"
+                        alt="Main Menu">
+                    <div class="card-body">Main Menu</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

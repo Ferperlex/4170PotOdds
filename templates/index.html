@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block title %}Pot Odds - Home{% endblock %}
+{% block content %}
+<style>
+    /* ─────────── CSS reset ─────────── */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* ─────────── page setup ─────────── */
+    html,
+    body {
+        height: 100%;
+        background: #6495ED;
+        /* cornflower blue */
+    }
+
+    /* ─────────── layout ─────────── */
+    #home-wrapper {
+        min-height: 100vh;
+        /* guarantee full‑viewport blue */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* ─────────── headline ─────────── */
+    #home-wrapper h1 {
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        font-size: 40px;
+        color: #ffffff;
+        margin-bottom: 40px;
+    }
+
+    /* ─────────── image ─────────── */
+    #home-image {
+        width: 380px;
+        /* modest, fixed size */
+        max-width: 80vw;
+        /* never overflow on mobile */
+        height: auto;
+        margin-bottom: 40px;
+    }
+
+    /* ─────────── start button ─────────── */
+    #start-btn {
+        display: block;
+        width: 380px;
+        /* match image width */
+        padding: 16px 0;
+        background: #CFFF04;
+        /* yellow */
+        border-radius: 12px;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        color: #000000;
+        text-decoration: none;
+    }
+
+    #start-btn:hover {
+        opacity: 0.95;
+    }
+
+    /* ─────────── small‑screen tweak ─────────── */
+    @media (max-width: 320px) {
+
+        #home-image,
+        #start-btn {
+            width: 90vw;
+        }
+    }
+</style>
+
+<div id="home-wrapper">
+    <h1 style="font-family: 'Bungee', sans-serif;">WELCOME TO POT ODDS</h1>
+    <img id="home-image" src="https://a.storyblok.com/f/161938/1200x630/b44c2b11be/ace-two-suited.jpg/m/"
+        alt="Poker table illustration" />
+    <a id="start-btn" href="{{ url_for('main_menu') }}">START</a>
+
+</div>
+{% endblock %}

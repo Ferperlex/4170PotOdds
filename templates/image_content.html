@@ -1,0 +1,12 @@
+{% extends "learn.html" %}
+
+{% block learn_content %}
+<div>
+    <h2 class="content-title">{{ title }}</h2>
+    <div class="content-wrapper">
+        <img src="{{ image }}" alt="{{ title }}" class="content-image">
+        <p>{{ content }}</p>
+    </div>
+</div>
+<a href="{{ next_url }}" class="btn btn-primary next-button">Next</a>
+{% endblock %}

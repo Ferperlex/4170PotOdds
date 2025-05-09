@@ -1,0 +1,137 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #d6e6f2;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .title {
+    font-family: 'Bungee', cursive;
+    font-size: 32px;
+    color: #1e56a0;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+
+  .main-menu-btn {
+    background-color: #c0392b;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+
+  .card-container {
+    width: 240px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+  }
+
+  .card-container:hover {
+    transform: translateY(-5px);
+  }
+
+  .button-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  .center {
+    font-size: 18px;
+    color: #1e56a0;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .button-container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card-container {
+      width: 90%;
+    }
+
+    .nav-buttons {
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="container">
+  <div class="nav-buttons">
+    <a href="{{ url_for('main_menu') }}" class="main-menu-btn">Main Menu</a>
+  </div>
+
+  <h1 class="title">You're Done Learning!</h1>
+  <p class="center">Great job finishing the Learn section! Now let’s test your knowledge.</p>
+
+  <div class="button-container">
+    <!-- Practice Quiz -->
+    <div class="card-container">
+      <a href="{{ url_for('practice_quiz', q_number=1) }}">
+        <img src="{{ url_for('static', filename='images/image3.png') }}" alt="Practice Quiz" class="button-image">
+        <div class="card-body">
+          <p class="center">Practice Quiz</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Real Quiz -->
+    <div class="card-container">
+      <a href="{{ url_for('quiz', q_number=1) }}">
+        <img src="{{ url_for('static', filename='images/image5.png') }}" alt="Real Quiz" class="button-image">
+        <div class="card-body">
+          <p class="center">Real Quiz</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Main Menu -->
+    <div class="card-container">
+      <a href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='images/image2.png') }}" alt="Main Menu" class="button-image">
+        <div class="card-body">
+          <p class="center">Main Menu</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

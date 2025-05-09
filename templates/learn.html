@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<nav class="learn-nav">
+    {% for t in topic_order %}
+    <a href="{{ url_for('learn', topic=t, slide_number=1) }}"
+        class="btn btn-secondary {% if topic == t %}btn-active{% endif %}">
+        {{ t }}
+    </a>
+    {% endfor %}
+</nav>
+
+<div class="learn-content">
+    {% block learn_content %}
+    <!-- Specific learn content will go here -->
+    {% endblock %}
+</div>
+{% endblock %}

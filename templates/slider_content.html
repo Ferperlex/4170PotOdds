@@ -1,0 +1,55 @@
+{% extends "learn.html" %}
+
+{% block content %}
+<div class="container">
+  <header>
+    <h1 class="title">{{ title }}</h1>
+    <div class="nav-buttons">
+      <a href="{{ url_for('main_menu') }}" class="btn main-menu-btn">Main Menu</a>
+    </div>
+  </header>
+
+  <div class="content-container">
+    <div class="text-content">
+      <div class="card card-content">
+        <h3>Example</h3>
+        <ul class="example-list">
+          {% if content.pot %}
+          <li class="example-item">Pot = {{ content.pot }}</li>
+          {% endif %}
+
+          {% if content.bet %}
+          <li class="example-item">Bet = {{ content.bet }}</li>
+          {% endif %}
+
+          {% if content.new_pot %}
+          <li class="example-item">New pot size: {{ content.new_pot }}</li>
+          {% endif %}
+
+          {% if content.pot_odds %}
+          <li class="example-item">Pot odds: {{ content.pot_odds }}</li>
+          {% endif %}
+
+          {% if content.required_equity %}
+          <li class="example-item">Required Equity: {{ content.required_equity }}</li>
+          {% endif %}
+
+          {% if content.conclusion %}
+          <li class="example-item">{{ content.conclusion }}</li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="image-container">
+      <img src="{{ image }}" alt="{{ title }}" onerror="this.src='/static/images/image2.png'">
+    </div>
+  </div>
+
+  <div class="navigation">
+    <a href="{{ prev_url }}" class="btn nav-btn">Back</a>
+    <a href="{{ next_url }}" class="btn nav-btn">Next</a>
+  </div>
+</div>
+{% endblock %}
+

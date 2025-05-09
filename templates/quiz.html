@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Bungee&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        background: #d6e6f2;
+        font-family: 'Inter', sans-serif;
+        margin: 0
+    }
+
+    .page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 60px 20px;
+        box-sizing: border-box
+    }
+
+    .quiz-box {
+        background: #f0f0f0;
+        max-width: 900px;
+        width: 100%;
+        padding: 50px 70px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .1)
+    }
+
+    .quiz-title {
+        font-family: 'Bungee', cursive;
+        font-size: 48px;
+        color: #1e56a0;
+        text-align: center;
+        margin: 0 0 10px
+    }
+
+    .subtitle {
+        font-weight: 600;
+        font-size: 22px;
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center
+    }
+
+    .question-details {
+        background: #f8f9fa;
+        padding: 22px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .05);
+        font-size: 19px
+    }
+
+    .quiz-image {
+        display: block;
+        width: 100%;
+        max-width: 480px;
+        margin: 30px auto;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, .1)
+    }
+
+    .button-row {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-bottom: 10px
+    }
+
+    .answer-btn {
+        min-width: 140px;
+        padding: 18px 0;
+        font-size: 20px;
+        font-weight: 700;
+        border: 0;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: .15s
+    }
+
+    .yes-btn {
+        background: #28a745;
+        color: #fff
+    }
+
+    .no-btn {
+        background: #dc3545;
+        color: #fff
+    }
+
+    .yes-btn:hover {
+        background: #218838;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .2)
+    }
+
+    .no-btn:hover {
+        background: #c82333;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .2)
+    }
+
+    .quiz-progress {
+        font-size: 15px;
+        color: #6c757d;
+        text-align: center;
+        margin-top: 28px
+    }
+</style>
+
+<div class="page">
+    <div class="quiz-box">
+        <h2 class="quiz-title">QUIZ</h2>
+        <p class="subtitle">
+            Quiz {{ q_number }} –
+            {% if ':' in question %}
+            {{ question.split(':')[0] }}
+            {% else %}
+            Pot-Odds Scenario
+            {% endif %}
+        </p>
+
+        <div class="question-details">
+            {% if ':' in question %}
+            {{ question.split(':',1)[1].strip() }}
+            {% else %}
+            {{ question }}
+            {% endif %}
+        </div>
+
+        {% if image %}
+        <img class="quiz-image" src="{{ image }}" alt="Related image">
+        {% endif %}
+
+        <form method="POST" action="{{ next_url }}">
+            <div class="button-row">
+                {% for option in options %}
+                <button type="submit" name="answer" value="{{ loop.index0 }}"
+                    class="answer-btn {% if option == 'Yes' %}yes-btn{% else %}no-btn{% endif %}">
+                    {{ option }}
+                </button>
+                {% endfor %}
+            </div>
+        </form>
+
+        <div class="quiz-progress">
+            Question {{ q_number }} of {{ total_questions }}
+        </div>
+    </div>
+</div>
+{% endblock %}
