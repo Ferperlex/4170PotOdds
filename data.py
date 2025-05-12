@@ -67,50 +67,50 @@ learn_data = {
     ],
 }
 
-# Quiz questions and answers
+# Quiz questions and answers - IMPROVED VERSION
 quiz_data = {
     "question_1": [
         {
-            "question": "Flush Draw: Pot: $80, Bet: $20, Hand: 2 hearts in hand + 2 on board (9 outs)",
-            "options": ["Yes", "No"],
+            "question": "Flush Draw: Pot: $80, Bet: $20, Hand: 2 hearts in hand + 2 on board (9 outs = 36% equity)",
+            "options": ["Call (Yes)", "Fold (No)"],
             "correct_answer": 0,
-            "explanation": "Yes! Pot odds 20/100 = 20%, equity ≈ 36%",
+            "explanation": "Yes, call! The pot odds are 20/100 = 20%, and your equity with a flush draw is about 36%. Since your equity (36%) exceeds the pot odds (20%), this is a profitable call.",
             "image": "/static/images/image2.png",
         }
     ],
     "question_2": [
         {
-            "question": "Gutshot Straight Draw: Pot: $90, Bet: $30, 4 outs (inside straight)",
-            "options": ["Yes", "No"],
+            "question": "Gutshot Straight Draw: Pot: $90, Bet: $30, Hand: Inside straight draw (4 outs = 16% equity)",
+            "options": ["Call (Yes)", "Fold (No)"],
             "correct_answer": 1,
-            "explanation": "No! Your equity (16%) is less than the pot odds (25%). This call would lose money in the long run.",
+            "explanation": "No, fold! Your equity (16%) is less than the pot odds (25%). This call would lose money in the long run because you aren't getting the right price to chase your draw.",
             "image": "/static/images/image3.png",
         }
     ],
     "question_3": [
         {
-            "question": "Overcards: Pot: $120, Bet: $40, You hold AK, board is 9-7-2 rainbow → no real outs",
-            "options": ["Yes", "No"],
+            "question": "Overcards: Pot: $120, Bet: $40, Hand: AK, Board: 9-7-2 rainbow (6 outs = 24% equity)",
+            "options": ["Call (Yes)", "Fold (No)"],
             "correct_answer": 1,
-            "explanation": "No! Your equity is weak with only 6 outs max",
+            "explanation": "No, fold! Your pot odds are 40/160 = 25%. With just overcards (6 outs), your equity is about 24%, which is slightly less than the pot odds required to call profitably.",
             "image": "/static/images/image4.png",
         }
     ],
     "question_4": [
         {
-            "question": "Paired Board: Pot: $100, Bet: $50, You have 10♣ 10♦, board: Q♣ Q♦ 2♠",
-            "options": ["Yes", "No"],
+            "question": "Paired Board: Pot: $100, Bet: $50, Hand: 10♣ 10♦, Board: Q♣ Q♦ 2♠ (2 outs = 8% equity)",
+            "options": ["Call (Yes)", "Fold (No)"],
             "correct_answer": 1,
-            "explanation": "No! Your equity is extremely low. Calling 33% pot odds with 8% equity is a mistake.",
+            "explanation": "No, fold! Your pot odds are 50/150 = 33%, but your equity with a small pocket pair against a paired board is only about 8%. This is a clear fold.",
             "image": "/static/images/image1.png",
         }
     ],
     "question_5": [
         {
-            "question": "Combo Draw: Pot: $150, Bet: $50, You hold 5♠ 6♠, board: 7♠ 8♠ Q♥, 15 outs (combo draw) → Equity ≈ 60%",
-            "options": ["Yes", "No"],
+            "question": "Combo Draw: Pot: $150, Bet: $50, Hand: 5♠ 6♠, Board: 7♠ 8♠ Q♥ (15 outs = 60% equity)",
+            "options": ["Call (Yes)", "Fold (No)"],
             "correct_answer": 0,
-            "explanation": "Yes! Massive equity (60%) vs 25% pot odds makes this a slam-dunk call (and sometimes a raise!)",
+            "explanation": "Yes, call! Your pot odds are 50/200 = 25%, but with a flush draw + straight draw combo (15 outs), your equity is around 60%. This is a slam-dunk call and possibly even a raise opportunity!",
             "image": "/static/images/image5.png",
         }
     ],
@@ -124,32 +124,32 @@ topic_order = [
     "HowToUsePotOdds",
 ]
 
-# Practice Quiz questions and answers
+# Practice Quiz questions and answers - IMPROVED VERSION
 practice_quiz_data = {
     "question_1": [
         {
-            "question": "Basic Pot Odds: Pot: $50, Bet: $25, What are your pot odds?",
+            "question": "If the pot is $50 and your opponent bets $25, what are your pot odds?",
             "options": ["3:1", "2:1", "1:2", "1:3"],
             "correct_answer": 0,
-            "explanation": "Pot odds are calculated as (pot + bet) : bet = $75 : $25 = 3:1",
+            "explanation": "Pot odds are calculated as (current pot + opponent's bet) : cost to call = $75 : $25 = 3:1",
             "image": "/static/images/image2.png",
         }
     ],
     "question_2": [
         {
-            "question": "Required Equity: Pot odds are 4:1. What equity do you need to break even?",
+            "question": "If your pot odds are 4:1, what minimum equity percentage do you need to break even?",
             "options": ["40%", "25%", "20%", "10%"],
             "correct_answer": 2,
-            "explanation": "With 4:1 pot odds, you need 1/(4+1) = 1/5 = 20% equity to break even",
+            "explanation": "With 4:1 pot odds, you need 1/(4+1) = 1/5 = 20% equity to break even. If your equity is higher than 20%, the call is profitable.",
             "image": "/static/images/image3.png",
         }
     ],
     "question_3": [
         {
-            "question": "Outs to Equity: You have 8 outs on the flop. What's your approximate equity?",
+            "question": "You have 8 outs on the flop. Using the Rule of 4, what's your approximate equity percentage?",
             "options": ["16%", "24%", "32%", "40%"],
             "correct_answer": 2,
-            "explanation": "Using the Rule of 4, with 8 outs, your equity is approximately 8 × 4 = 32%",
+            "explanation": "Using the Rule of 4, with 8 outs, your equity is approximately 8 × 4 = 32%. This is your approximate chance of hitting your outs by the river.",
             "image": "/static/images/image5.png",
         }
     ],
