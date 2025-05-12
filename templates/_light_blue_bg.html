@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block page_css %}
+{{ super() }} {# keep any global per-page CSS that comes later #}
+<style>
+    html,
+    body {
+        background: #d6e6f2;
+    }
+</style>
+{% endblock %}

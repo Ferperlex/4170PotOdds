@@ -1,69 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Pot Odds</title>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Pot Odds{% endblock %}</title>
 
-    <!-- ✅ Bungee Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet" />
 
+    <!-- ―――――――― global styles ―――――――― -->
     <style>
-        /* ─────────── page setup ─────────── */
+        /* reset / scaffold */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         html,
         body {
             height: 100%;
-            margin: 0;
+            font-family: 'Inter', sans-serif;
             background: #6495ED;
-            /* cornflower blue */
         }
 
-        /* ─────────── layout ─────────── */
-        #home-wrapper {
-            min-height: 100%;
+        /* ――― top nav ――― */
+        .top-nav {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            gap: 32px;
+            height: 56px;
+            padding: 0 36px;
+            background: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
+            position: relative;
+            z-index: 50;
+        }
+
+        .top-nav a,
+        .top-nav .dropbtn {
+            display: flex;
             align-items: center;
-            text-align: center;
+            /* vertical centring */
+            height: 100%;
+            padding: 0 4px;
+            font-weight: 600;
+            font-size: 16px;
+            color: #1e56a0;
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+            transition: border-color .15s;
+            cursor: pointer;
         }
 
-        /* ─────────── headline ─────────── */
-        #home-wrapper h1 {
-            font-family: 'Bungee', sans-serif;  /* ✅ updated */
-            font-weight: bold;
-            font-size: 48px;
-            color: #ffffff;
-            margin: 0 0 40px;
+        .top-nav a:hover,
+        .dropbtn:hover {
+            border-color: #1e56a0;
         }
 
-        /* ─────────── image ─────────── */
-        #home-image {
-            width: 340px;
-            height: auto;
-            margin-bottom: 40px;
+        .top-nav .active {
+            border-color: #ffc107;
         }
 
-        /* ─────────── start button ─────────── */
-        #start-btn {
-            display: inline-block;
-            width: 340px;
-            padding: 16px 0;
-            background: #ffd700;
-            border-radius: 12px;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            color: #5e5e5e;
+        /* dropdown */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 240px;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+            padding: 6px 0;
+        }
+
+        /* keep it open while the pointer is anywhere over the dropdown box */
+        .dropdown:hover .dropdown-content,
+        .dropdown-content:hover {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 18px;
+            color: #1e56a0;
+            font-size: 15px;
             text-decoration: none;
         }
 
-        #start-btn:hover {
-            opacity: 0.95;
+        .dropdown-content a:hover {
+            background: #f5f7fa;
         }
     </style>
+
+    {% block page_css %}{% endblock %}
 </head>
 
 <body>
+    <!-- global nav -->
+    <nav class="top-nav">
+
+        <!-- Learn dropdown -->
+        <div class="dropdown">
+            <span class="dropbtn {% if 'learn' in request.endpoint %}active{% endif %}">
+                Learn ▾
+            </span>
+            <div class="dropdown-content">
+                <a href="{{ url_for('learn', topic='WhatArePotOdds',      slide_number=1) }}">What are pot odds?</a>
+                <a href="{{ url_for('learn', topic='WhenDoPotOddsMatter', slide_number=1) }}">When do pot odds
+                    matter?</a>
+                <a href="{{ url_for('learn', topic='EstimatingEquity',    slide_number=1) }}">Estimating equity</a>
+                <a href="{{ url_for('learn', topic='HowToUsePotOdds',     slide_number=1) }}">How to use pot odds</a>
+            </div>
+        </div>
+
+        <!-- quizzes -->
+        <a href="{{ url_for('practice_quiz', q_number=1) }}"
+            class="{% if 'practice_quiz' in request.endpoint %}active{% endif %}">
+            Practice Quiz
+        </a>
+
+        <a href="{{ url_for('quiz', q_number=1) }}"
+            class="{% if 'quiz' in request.endpoint and 'practice' not in request.endpoint %}active{% endif %}">
+            Final Quiz
+        </a>
+    </nav>
+
     {% block content %}{% endblock %}
 </body>
+
 </html>

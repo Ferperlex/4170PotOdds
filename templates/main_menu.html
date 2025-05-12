@@ -1,15 +1,10 @@
 {% extends "layout.html" %}
 {% block title %}Main Menu{% endblock %}
-{% block content %}
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Bungee&display=swap" rel="stylesheet">
-
+{% block page_css %}
 <style>
   body {
-    background-color: #d6e6f2;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
+    background: #d6e6f2;
   }
 
   .page {
@@ -17,17 +12,14 @@
     flex-direction: column;
     align-items: center;
     padding: 60px 20px;
-    min-height: 100vh;
-    box-sizing: border-box;
+    min-height: calc(100vh - 56px);
   }
 
   h1 {
     font-family: 'Bungee', cursive;
     font-size: 48px;
-    color: #333333;
+    color: #333;
     margin-bottom: 40px;
-    text-align: center;
-    letter-spacing: 2px;
   }
 
   .container {
@@ -36,7 +28,7 @@
     background: #f0f0f0;
     padding: 50px 70px;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
   }
 
   .menu-buttons,
@@ -46,101 +38,91 @@
     gap: 20px;
   }
 
-  .menu-buttons a,
-  .right-buttons a {
-    text-decoration: none;
-  }
-
   .menu-buttons button,
   .right-buttons button {
-    padding: 18px 32px;
+    width: 280px;
+    padding: 18px 0;
     font-size: 18px;
-    font-family: Arial, sans-serif;
     font-weight: bold;
-    border: none;
+    border: 0;
     border-radius: 10px;
     cursor: pointer;
-    width: 280px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform .15s, box-shadow .15s;
+    font-family: Arial, sans-serif;
   }
 
+  /* Learn buttons (unchanged) */
   .menu-buttons button {
     background: linear-gradient(to right, #1e56a0, #274e8e);
-    color: white;
+    color: #fff;
   }
 
   .menu-buttons button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
   }
 
+  /* Subtle on-brand blues */
   .practice-quiz {
-    background-color: #aaaaaa;
-    color: white;
+    background: #6f8ed1;
+    color: #fff;
+    background: linear-gradient(to right, #6f8ed1, #5d7fc5);
   }
 
   .practice-quiz:hover {
-    background-color: #999999;
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
   }
 
   .quiz {
-    background-color: #ffe84a;
-    color: #000;
-    text-decoration: underline;
+    background: #6f8ed1;
+    color: #fff;
+    background: linear-gradient(to right, #90a9e0, #7d96d4);
   }
 
   .quiz:hover {
-    background-color: #fddb3a;
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .2);
   }
 
-  @media (max-width: 768px) {
+  @media(max-width:768px) {
     .container {
       flex-direction: column;
       align-items: center;
       padding: 40px;
     }
 
-    .menu-buttons button,
-    .right-buttons button {
-      min-width: 100%;
-    }
-
     h1 {
       font-size: 36px;
     }
+
+    .menu-buttons button,
+    .right-buttons button {
+      width: 100%;
+    }
   }
 </style>
+{% endblock %}
 
+{% block content %}
 <div class="page">
   <h1>MAIN MENU</h1>
+
   <div class="container">
+    <!-- Learn first -->
     <div class="menu-buttons">
-      <a href="{{ url_for('learn', topic='WhatArePotOdds', slide_number=1) }}">
-        <button>What are pot odds?</button>
-      </a>
-      <a href="{{ url_for('learn', topic='WhenDoPotOddsMatter', slide_number=1) }}">
-        <button>When do pot odds matter?</button>
-      </a>
-      <a href="{{ url_for('learn', topic='EstimatingEquity', slide_number=1) }}">
-        <button>Estimating Equity</button>
-      </a>
-      <a href="{{ url_for('learn', topic='HowToUsePotOdds', slide_number=1) }}">
-        <button>How to use pot odds</button>
-      </a>
+      <a href="{{ url_for('learn', topic='WhatArePotOdds', slide_number=1) }}"><button>What are pot odds?</button></a>
+      <a href="{{ url_for('learn', topic='WhenDoPotOddsMatter', slide_number=1) }}"><button>When do pot odds
+          matter?</button></a>
+      <a href="{{ url_for('learn', topic='EstimatingEquity', slide_number=1) }}"><button>Estimating equity</button></a>
+      <a href="{{ url_for('learn', topic='HowToUsePotOdds', slide_number=1) }}"><button>How to use pot odds</button></a>
     </div>
+
+    <!-- Quizzes -->
     <div class="right-buttons">
-      <a href="{{ url_for('practice_quiz', q_number=1) }}">
-        <button class="practice-quiz">Practice Quiz</button>
-      </a>
-      <a href="{{ url_for('quiz', q_number=1) }}">
-        <button class="quiz">QUIZ</button>
-      </a>
+      <a href="{{ url_for('practice_quiz', q_number=1) }}"><button class="practice-quiz">Practice Quiz</button></a>
+      <a href="{{ url_for('quiz', q_number=1) }}"><button class="quiz">Final Quiz</button></a>
     </div>
   </div>
 </div>
-
 {% endblock %}
